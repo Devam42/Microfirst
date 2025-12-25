@@ -1,0 +1,376 @@
+{
+  "preferences": {},
+  "important_dates": [],
+  "personal_memories": [
+    {
+      "topic": "work",
+      "content": "nothing just making changes in your settings also able to hear what I am speaking clearly and those are cancellation noise cancellation and all this kind of thing so basically I am just working on you to make it more better",
+      "emotion": "neutral",
+      "timestamp": "2025-10-30T01:29:29.178958",
+      "importance": 3
+    },
+    {
+      "topic": "technology",
+      "content": "many times it happens the problem is like when I bring to you in the market and when I sell you you will go into multiple forms and it will just decrease the User experience and they will not like you that is a problem when it will give",
+      "emotion": "neutral",
+      "timestamp": "2025-10-30T01:31:54.003956",
+      "importance": 3
+    }
+  ],
+  "conversation_history": [
+    {
+      "timestamp": "2025-10-28T00:03:04.274676",
+      "user_input": "hello what how are you",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 3
+    },
+    {
+      "timestamp": "2025-10-28T00:03:15.987681",
+      "user_input": "I am saying how are you",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 3
+    },
+    {
+      "timestamp": "2025-10-28T00:03:26.944260",
+      "user_input": "are you not understanding like what I am saying",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 3
+    },
+    {
+      "timestamp": "2025-10-28T00:07:00.461271",
+      "user_input": "hello call karo",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:07:23.493736",
+      "user_input": "not lovely like I am kids sex today",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:08:15.369526",
+      "user_input": "can you just talk with me like tell me a good joke or something",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:08:34.599970",
+      "user_input": "it's a boring joke",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:09:02.738836",
+      "user_input": "I can get so",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:12:07.063215",
+      "user_input": "hello what how are you",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:12:25.337139",
+      "user_input": "I am not feeling good today man",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:12:48.337971",
+      "user_input": "bhabhi ji ke beta I have a very stressful day today",
+      "bot_response": "",
+      "mood": "anxious",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:13:09.215382",
+      "user_input": "what should I do like when I am stressed",
+      "bot_response": "",
+      "mood": "anxious",
+      "stress_level": 3
+    },
+    {
+      "timestamp": "2025-10-28T00:13:32.064184",
+      "user_input": "ok and can you give me some ways to do it",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:14:02.027619",
+      "user_input": "like I have fight with my girlfriend",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:14:28.550172",
+      "user_input": "like four people beat me today man",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:17:55.984022",
+      "user_input": "hello what how are you",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:18:16.988883",
+      "user_input": "in the morning I am very happy like everything was going good",
+      "bot_response": "",
+      "mood": "happy",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:18:46.059242",
+      "user_input": "you like in school we have exam today I got a very good percentage in my exam I am happy and my mother also give me a very good thought lunch today in my tiffin box",
+      "bot_response": "",
+      "mood": "happy",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:19:12.943866",
+      "user_input": "it was an Indian rupees know that",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:19:44.728923",
+      "user_input": "it feels better stay but one more thing that I have to tell his life for the amount of good my day was my after the after morning my day was very bad",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:20:06.295841",
+      "user_input": "very sad",
+      "bot_response": "",
+      "mood": "sad",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:20:23.242956",
+      "user_input": "hello Bittu bhai ho kya",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:24:27.412758",
+      "user_input": "hello what how are you",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:24:45.883442",
+      "user_input": "good day today",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:25:05.244492",
+      "user_input": "I got a very good percentage in my exam and also my mother very good lunch",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:25:28.227465",
+      "user_input": "main Mumbai Indians today is called as dosa I don't like you know that or not",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:25:51.886852",
+      "user_input": "I like we serve Aalu ki Chatni on that",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:26:12.501974",
+      "user_input": "special treat today like I got a very good percentage my exam so",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:26:29.258972",
+      "user_input": "leave the topic I don't want to talk on that much more",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:26:51.414538",
+      "user_input": "like what I have a bad news today",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-28T00:27:22.693477",
+      "user_input": "क्या यार मुझे आज 4 लोगों ने मिलकर मार दिया मैं क्या करूं",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-30T00:08:33.870990",
+      "user_input": "हेलो",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-30T01:28:09.898891",
+      "user_input": "हेलो ब्रो हाउ आर यू",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-30T01:28:56.515725",
+      "user_input": "thanks for eat what I said",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-30T01:29:29.178958",
+      "user_input": "nothing just making changes in your settings also able to hear what I am speaking clearly and those are cancellation noise cancellation and all this kind of thing so basically I am just working on you to make it more better",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-30T01:29:58.712648",
+      "user_input": "just looking how your ability to listen can be improved like whatever the user is speaking you should be able to understand it clearly",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-30T01:30:33.631882",
+      "user_input": "yeah it's little bit tricky bro sometime you are not able to capture what I am saying Your capturing the wrong words which I haven't said and accordingly your answers are also coming Falls or it's not up to the mark",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-30T01:31:15.147105",
+      "user_input": "like one time I ask you what you are doing and what you capture it is have you eaten your lunch today so that means basically like two different things and what will happen to the production",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-30T01:31:54.003956",
+      "user_input": "many times it happens the problem is like when I bring to you in the market and when I sell you you will go into multiple forms and it will just decrease the User experience and they will not like you that is a problem when it will give",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-30T01:32:42.834524",
+      "user_input": "Vice City eventually will bring down the cells that I don't want like I want to be rich and I want apart from this I want you to go in as much as you can and help the desktop to be clean and like everything",
+      "bot_response": "",
+      "mood": "sad",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-30T01:33:07.150473",
+      "user_input": "you can just listen carefully what I am saying",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-30T01:33:33.922773",
+      "user_input": "just can you remind me in 2 minutes that I have to sleep it's been very late",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-30T01:33:57.943858",
+      "user_input": "ok thanks Google you are like you are helpful just I have to make some changes in your some changes in you so you can be more accurate",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-30T01:34:26.678543",
+      "user_input": "do you think like what the users will enjoy while talking to you what are the other features we should add in your apart from which are added till now",
+      "bot_response": "",
+      "mood": "happy",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-30T01:34:53.356870",
+      "user_input": "before that can you tell me how much time is remaining for the reminder to alarm",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-30T01:35:15.079138",
+      "user_input": "I said OK",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    },
+    {
+      "timestamp": "2025-10-30T01:35:41.161522",
+      "user_input": "can you again tell me like how much time is remaining for the reminder",
+      "bot_response": "",
+      "mood": "neutral",
+      "stress_level": 1
+    }
+  ],
+  "user_profile": {
+    "name": null,
+    "interests": [
+      "health",
+      "relationships",
+      "food",
+      "technology",
+      "work",
+      "music",
+      "travel"
+    ],
+    "personality_traits": [],
+    "communication_style": "casual"
+  },
+  "relationship_data": {
+    "interaction_count": 47,
+    "favorite_topics": [],
+    "mood_patterns": {
+      "neutral": 40,
+      "anxious": 2,
+      "happy": 3,
+      "sad": 2
+    },
+    "support_provided": []
+  }
+}

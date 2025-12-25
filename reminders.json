@@ -1,0 +1,51 @@
+{
+  "reminders": [],
+  "active_reminders": [
+    {
+      "id": "6c02e883",
+      "triggered_at": "2025-11-23T10:51:37.007625",
+      "message_generated": "Reminder: go to a doctor"
+    },
+    {
+      "id": "54e4ac48",
+      "triggered_at": "2025-11-23T11:01:31.081341",
+      "message_generated": "Reminder: remind me"
+    },
+    {
+      "id": "7a566d9b",
+      "triggered_at": "2025-11-23T11:05:44.129777",
+      "message_generated": "Reminder: go to doctor"
+    },
+    {
+      "id": "de643e69",
+      "triggered_at": "2025-11-23T11:07:07.187106",
+      "message_generated": "Reminder: i have to go to doctor"
+    },
+    {
+      "id": "9bd55b1f",
+      "triggered_at": "2025-11-23T11:15:39.140374",
+      "message_generated": "Reminder: eat"
+    },
+    {
+      "id": "cd423108",
+      "triggered_at": "2025-11-23T12:00:05.805955",
+      "message_generated": "Reminder: sleep"
+    },
+    {
+      "id": "ea6ffded",
+      "triggered_at": "2025-11-23T17:21:47.616595",
+      "message_generated": "Reminder: and remind me after 2 minutes that i have to change the api key"
+    },
+    {
+      "id": "19928f7e",
+      "triggered_at": "2025-11-23T17:26:20.333551",
+      "message_generated": "Reminder! sleep"
+    }
+  ],
+  "settings": {
+    "voice_reminders": false,
+    "smart_messages": true,
+    "default_language": "hinglish",
+    "retention_days": 7
+  }
+}

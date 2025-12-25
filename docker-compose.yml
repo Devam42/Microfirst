@@ -1,0 +1,114 @@
+# ============================================================================
+# MICROBOT API Server - Docker Compose Configuration
+# ============================================================================
+# 
+# Quick Start:
+#   1. Copy env.example to .env and fill in your credentials
+#   2. Run: docker-compose up -d
+#   3. Check logs: docker-compose logs -f
+#   4. Stop: docker-compose down
+#
+# ============================================================================
+
+version: '3.8'
+
+services:
+  microbot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: microbot-api:latest
+    container_name: microbot-api
+    restart: unless-stopped
+    
+    ports:
+      - "5000:5000"
+    
+    environment:
+      # AWS Credentials for Polly TTS (Required)
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-ap-south-1}
+      
+      # Alternative AWS credential names (also supported)
+      - MICROBOT_AWS_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
+      - MICROBOT_AWS_SECRET_KEY=${AWS_SECRET_ACCESS_KEY}
+      
+      # Google Gemini API Key (Required for AI)
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - GEMINI_API_KEY=${GOOGLE_API_KEY}
+      
+      # Application settings
+      - PORT=5000
+      - PYTHONUNBUFFERED=1
+      - DEFAULT_LANGUAGE=${DEFAULT_LANGUAGE:-english}
+      - BOT_NAME=${BOT_NAME:-Microbot}
+    
+    volumes:
+      # Persist configuration and data
+      - ./config.json:/app/config.json
+      - ./reminders.json:/app/reminders.json
+      - ./notes.json:/app/notes.json
+      - ./personal_memory.json:/app/personal_memory.json
+      
+      # Logs directory
+      - ./logs:/app/logs
+    
+    networks:
+      - microbot-network
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    
+    # Resource limits (adjust based on your server)
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+
+networks:
+  microbot-network:
+    driver: bridge
+
+# ============================================================================
+# DEPLOYMENT COMMANDS
+# ============================================================================
+#
+# Build and start:
+#   docker-compose up -d --build
+#
+# View logs:
+#   docker-compose logs -f microbot
+#
+# Restart:
+#   docker-compose restart microbot
+#
+# Stop:
+#   docker-compose down
+#
+# Update and redeploy:
+#   git pull
+#   docker-compose up -d --build
+#
+# Check health:
+#   curl http://localhost:5000/api/health
+#
+# Test process endpoint:
+#   curl -X POST http://localhost:5000/process \
+#     -F "audio=@test.pcm;type=audio/pcm"
+#
+# ============================================================================

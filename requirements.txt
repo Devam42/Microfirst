@@ -1,0 +1,66 @@
+# Microbot AI Assistant - Requirements
+
+# Core AI and ML
+google-genai>=0.7.0
+
+# Environment Variables
+python-dotenv>=1.0.0
+
+# FastAPI Server
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.0.0
+httpx>=0.25.0  # Async HTTP client for webhooks
+
+# Date and time processing
+python-dateutil>=2.8.0
+
+# Scheduling
+apscheduler>=3.10.0
+
+# JSON handling
+typing-extensions>=4.5.0
+
+# Voice System (STT & TTS)
+# AWS Polly for Text-to-Speech
+boto3>=1.28.0
+
+# Speech Recognition for Speech-to-Text
+SpeechRecognition>=3.10.0
+
+# Audio playback
+sounddevice>=0.4.6
+numpy>=1.24.0
+pydub>=0.25.1
+
+# ============================================
+# PHASE 1: Advanced Audio Processing (ML-grade)
+# ============================================
+
+# Neural Noise Suppression
+noisereduce>=3.0.0              # RNNoise-based noise reduction
+
+# Voice Activity Detection (VAD)
+torch>=2.0.0                     # Required for Silero VAD
+torchaudio>=2.0.0                # Audio processing with PyTorch
+
+# Audio Processing
+librosa>=0.10.0                  # Audio analysis and feature extraction
+soundfile>=0.12.0                # Audio I/O
+scipy>=1.11.0                    # DSP filters and signal processing
+
+# Note: Using Enhanced Google SR (no Whisper needed)
+# This keeps the system lightweight while still providing
+# RNNoise noise suppression + Silero VAD preprocessing
+
+# PyAudio for microphone (alternative to sounddevice)
+# Note: May require system audio libraries
+# On Windows: pip install pipwin, then pipwin install pyaudio
+# On Linux: sudo apt-get install portaudio19-dev python3-pyaudio
+# On macOS: brew install portaudio
+PyAudio>=0.2.11
+
+# Development and testing (optional)
+pytest>=7.0.0
+black>=23.0.0
+flake8>=6.0.0

@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microbot Testing Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 30px;
+        }
+
+        /* Microbot Screen (Small Square) */
+        .microbot-screen {
+            background: #1a1a1a;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border: 3px solid #333;
+            height: 400px;
+            position: sticky;
+            top: 20px;
+        }
+
+        .microbot-display {
+            background: #000;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            height: 100%;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            overflow-y: auto;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .microbot-title {
+            color: #00ff00;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .bot-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 8px;
+            background: rgba(0, 255, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: #00ff00;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .bot-message {
+            margin: 5px 0;
+            padding: 5px;
+            border-left: 2px solid #00ff00;
+            padding-left: 8px;
+        }
+
+        .bot-message.user {
+            border-left-color: #00ffff;
+            color: #00ffff;
+        }
+
+        /* Mobile App Screen */
+        .app-screen {
+            background: #000;
+            border-radius: 30px;
+            padding: 20px;
+            max-width: 420px;
+            margin: 0 auto;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.4);
+            border: 8px solid #333;
+            min-height: 800px;
+        }
+
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .app-title {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn {
+            background: #1f1f1f;
+            color: #667eea;
+            border: 1px solid #667eea;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            background: #1a1a1a;
+            padding: 8px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #333;
+        }
+
+        .tab {
+            background: transparent;
+            color: #888;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 16px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: #667eea;
+            transform: scale(1.02);
+        }
+
+        .card-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-left {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #e0e0e0;
+            margin-bottom: 4px;
+        }
+
+        .card-desc {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .card-action {
+            font-size: 12px;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            color: #667eea;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* API Status */
+        .api-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #1a1a1a;
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            color: white;
+            font-size: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .api-status.online {
+            border-color: #00ff00;
+        }
+
+        .api-status.offline {
+            border-color: #ff0000;
+        }
+
+        .console {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .console-line {
+            margin: 3px 0;
+            word-wrap: break-word;
+        }
+
+        .console-line.success { color: #00ff00; }
+        .console-line.error { color: #ff0000; }
+        .console-line.info { color: #00aaff; }
+
+        /* Loading */
+        .loading {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid #333;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        /* Smooth scrolling optimization */
+        .microbot-display, .console {
+            scroll-behavior: auto; /* Faster than smooth */
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 420px;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid #333;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            color: #888;
+        }
+
+        .nav-item.active .nav-label {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <!-- API Status Indicator -->
+    <div class="api-status" id="apiStatus">
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <div class="status-dot"></div>
+            <div>
+                <div style="font-weight: 600;">API Server</div>
+                <div id="apiStatusText">Checking...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Microbot Screen (Left Side) -->
+        <div class="microbot-screen">
+            <div class="microbot-title">🤖 MICROBOT</div>
+            <div class="microbot-display" id="microbotDisplay">
+                <div class="bot-status">
+                    <div class="status-dot"></div>
+                    <div>System: Online</div>
+                </div>
+                <div class="bot-message">Microbot v1.0 Ready</div>
+                <div class="bot-message">Waiting for commands...</div>
+            </div>
+        </div>
+
+        <!-- Mobile App Screen (Right Side) -->
+        <div class="app-screen">
+            <!-- Header -->
+            <div class="app-header">
+                <h1 class="app-title">Bot Control</h1>
+                <button class="btn" onclick="showAPIHelp()">⚙️ API Help</button>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('control')">Control</button>
+                <button class="tab" onclick="switchTab('modes')">Modes</button>
+                <button class="tab" onclick="switchTab('settings')">Settings</button>
+            </div>
+
+            <!-- Control Tab -->
+            <div class="tab-content active" id="control">
+                <!-- Connection Status -->
+                <div class="card" onclick="testGetConfig()">
+                    <div class="card-content">
+                        <div class="card-left">
+                            <div class="card-icon">📡</div>
+                            <div>
+                                <div class="card-title">Connection Status</div>
+                                <div class="card-desc">Tap to check API connection</div>
+                            </div>
+                        </div>
+                        <div class="card-action">Test</div>
+                    </div>
+                </div>
+
+                <!-- Language Selection -->
+                <div class="card">
+                    <div class="form-group">
+                        <label class="form-label">Language</label>
+                        <select class="form-select" id="languageSelect" onchange="changeLanguage()">
+                            <option value="english">English</option>
+                            <option value="hinglish">Hinglish</option>
+                            <option value="marathi">Marathi</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Bot Name & Mode -->
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom: 15px;">Bot Configuration</h3>
+                    <div class="form-group">
+                        <label class="form-label">Bot Name</label>
+                        <input type="text" class="form-input" id="botName" placeholder="Enter bot name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Current Mode</label>
+                        <select class="form-select" id="modeSelect">
+                            <option value="normal">Normal</option>
+                            <option value="notes">Notes Mode</option>
+                            <option value="pomodoro">Pomodoro</option>
+                            <option value="voice">Voice Mode</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%; padding: 12px;" onclick="updateConfig()">
+                        💾 Save Configuration
+                    </button>
+                </div>
+
+                <!-- Voice Conversation Test -->
+                <div class="card" onclick="testVoiceConversation()" id="voiceCard">
+                    <div class="card-content">
+                        <div class="card-left">
+                            <div class="card-icon">🎤</div>
+                            <div>
+                                <div class="card-title">Test Voice (Single)</div>
+                                <div class="card-desc">⚠️ One conversation only</div>
+                            </div>
+                        </div>
+                        <div class="card-action">Talk</div>
+                    </div>
+                </div>
+
+                <!-- Continuous Voice Mode -->
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom: 15px;">🔄 Continuous Voice Mode</h3>
+                    <p style="color: #888; font-size: 12px; margin-bottom: 15px;">
+                        Bot keeps listening and responding until stopped
+                    </p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <button class="btn btn-primary" onclick="startContinuousVoice()" id="startBtn">
+                            ▶️ Start Continuous
+                        </button>
+                        <button class="btn" style="background: #ff4444; border-color: #ff4444; color: white;" onclick="stopContinuousVoice()" id="stopBtn">
+                            ⏹️ Stop
+                        </button>
+                    </div>
+                    <div style="margin-top: 10px; font-size: 12px; color: #888;" id="voiceStatus">
+                        Status: Stopped
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modes Tab -->
+            <div class="tab-content" id="modes">
+                <!-- Reminders -->
+                <div class="card" onclick="getReminders()">
+                    <div class="card-content">
+                        <div class="card-left">
+                            <div class="card-icon">⏰</div>
+                            <div>
+                                <div class="card-title">Reminders</div>
+                                <div class="card-desc">Tap to view all reminders</div>
+                            </div>
+                        </div>
+                        <div class="card-action">View</div>
+                    </div>
+                </div>
+
+                <!-- Add Reminder -->
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom: 15px;">Add New Reminder</h3>
+                    <div class="form-group">
+                        <label class="form-label">Task</label>
+                        <input type="text" class="form-input" id="reminderTask" placeholder="What to remind?">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Time (e.g., 2025-10-23T18:00:00)</label>
+                        <input type="datetime-local" class="form-input" id="reminderTime">
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%; padding: 12px;" onclick="addReminder()">
+                        ➕ Add Reminder
+                    </button>
+                </div>
+
+                <!-- Notes -->
+                <div class="card" onclick="getNotes()">
+                    <div class="card-content">
+                        <div class="card-left">
+                            <div class="card-icon">📝</div>
+                            <div>
+                                <div class="card-title">Notes</div>
+                                <div class="card-desc">Tap to view all notes</div>
+                            </div>
+                        </div>
+                        <div class="card-action">View</div>
+                    </div>
+                </div>
+
+                <!-- Add Note -->
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom: 15px;">Add New Note</h3>
+                    <div class="form-group">
+                        <label class="form-label">Content</label>
+                        <input type="text" class="form-input" id="noteContent" placeholder="Enter note content">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tags (comma-separated)</label>
+                        <input type="text" class="form-input" id="noteTags" placeholder="e.g., work, urgent">
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%; padding: 12px;" onclick="addNote()">
+                        ➕ Add Note
+                    </button>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div class="tab-content" id="settings">
+                <!-- API Health -->
+                <div class="card" onclick="checkHealth()">
+                    <div class="card-content">
+                        <div class="card-left">
+                            <div class="card-icon">🏥</div>
+                            <div>
+                                <div class="card-title">API Health Check</div>
+                                <div class="card-desc">Check all components status</div>
+                            </div>
+                        </div>
+                        <div class="card-action">Check</div>
+                    </div>
+                </div>
+
+                <!-- API Info -->
+                <div class="card" onclick="getAPIInfo()">
+                    <div class="card-content">
+                        <div class="card-left">
+                            <div class="card-icon">ℹ️</div>
+                            <div>
+                                <div class="card-title">API Information</div>
+                                <div class="card-desc">View available endpoints</div>
+                            </div>
+                        </div>
+                        <div class="card-action">Info</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Console Output -->
+            <div class="console" id="consoleOutput">
+                <div class="console-line info">Console ready. Tap any button to test APIs...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API Configuration
+        const API_BASE_URL = 'http://localhost:5000';
+        
+        // Performance optimizations
+        const MAX_CONSOLE_LINES = 50; // Limit console lines
+        const MAX_MICROBOT_LINES = 30; // Limit microbot lines
+        let consoleLineCount = 0;
+        let microbotLineCount = 0;
+        
+        // Prevent multiple simultaneous API calls
+        const activeCalls = new Set();
+        const CALL_COOLDOWN = 2000; // 2 seconds between calls
+
+        // Utility Functions
+        function logToConsole(message, type = 'info') {
+            const consoleEl = document.getElementById('consoleOutput');
+            
+            // Remove old lines if too many
+            if (consoleLineCount >= MAX_CONSOLE_LINES) {
+                const firstLine = consoleEl.firstElementChild;
+                if (firstLine) firstLine.remove();
+            } else {
+                consoleLineCount++;
+            }
+            
+            const line = document.createElement('div');
+            line.className = `console-line ${type}`;
+            line.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            consoleEl.appendChild(line);
+            consoleEl.scrollTop = consoleEl.scrollHeight;
+        }
+
+        function logToMicrobot(message, isUser = false) {
+            const display = document.getElementById('microbotDisplay');
+            
+            // Remove old lines if too many
+            if (microbotLineCount >= MAX_MICROBOT_LINES) {
+                const lines = display.querySelectorAll('.bot-message');
+                if (lines.length > 0) lines[0].remove();
+            } else {
+                microbotLineCount++;
+            }
+            
+            const msg = document.createElement('div');
+            msg.className = isUser ? 'bot-message user' : 'bot-message';
+            msg.textContent = message;
+            display.appendChild(msg);
+            display.scrollTop = display.scrollHeight;
+        }
+
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        // API Functions
+
+        // 1. Check API Health (optimized)
+        async function checkHealth() {
+            logToConsole('Checking health...', 'info');
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/health`);
+                const data = await response.json();
+                logToConsole(`✅ ${data.status}`, 'success');
+                logToMicrobot(`Status: ${data.status.toUpperCase()}`);
+                updateAPIStatus(true);
+            } catch (error) {
+                logToConsole(`❌ Offline`, 'error');
+                updateAPIStatus(false);
+            }
+        }
+
+        // 2. Get API Info (optimized)
+        async function getAPIInfo() {
+            logToConsole('GET info...', 'info');
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/info`);
+                const data = await response.json();
+                logToConsole(`✅ ${data.name} v${data.version}`, 'success');
+                logToMicrobot(`API v${data.version}`);
+            } catch (error) {
+                logToConsole(`❌ ${error.message}`, 'error');
+            }
+        }
+
+        // 3. Get Config (with caching)
+        async function testGetConfig() {
+            // Use cache if available and recent (< 5 seconds)
+            if (cachedConfig && (Date.now() - cachedConfig.timestamp) < 5000) {
+                const data = cachedConfig.data;
+                document.getElementById('botName').value = data.config.bot_name;
+                document.getElementById('languageSelect').value = data.config.language;
+                document.getElementById('modeSelect').value = data.config.current_mode;
+                logToConsole('Config loaded from cache', 'info');
+                return;
+            }
+            
+            logToConsole('GET /api/config - Fetching...', 'info');
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/config`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Cache the config
+                    cachedConfig = { data, timestamp: Date.now() };
+                    
+                    logToConsole(`✅ ${data.config.bot_name}`, 'success');
+                    logToMicrobot(`${data.config.bot_name} | ${data.config.language}`);
+                    
+                    // Update form fields
+                    document.getElementById('botName').value = data.config.bot_name;
+                    document.getElementById('languageSelect').value = data.config.language;
+                    document.getElementById('modeSelect').value = data.config.current_mode;
+                }
+            } catch (error) {
+                logToConsole(`❌ ${error.message}`, 'error');
+            }
+        }
+
+        // 4. Update Config
+        async function updateConfig() {
+            const botName = document.getElementById('botName').value;
+            const language = document.getElementById('languageSelect').value;
+            const mode = document.getElementById('modeSelect').value;
+
+            logToConsole('PUT /api/config - Updating...', 'info');
+            
+            // Clear cache
+            cachedConfig = null;
+            
+            const payload = { bot_name: botName, language: language, current_mode: mode };
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/config`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    logToConsole('✅ Saved!', 'success');
+                    logToMicrobot(`Updated: ${botName}`);
+                    showQuickMessage('✅ Saved!');
+                } else {
+                    logToConsole(`❌ ${data.error}`, 'error');
+                }
+            } catch (error) {
+                logToConsole(`❌ ${error.message}`, 'error');
+            }
+        }
+        
+        // Quick message instead of alert (faster)
+        function showQuickMessage(message) {
+            const existing = document.getElementById('quickMessage');
+            if (existing) existing.remove();
+            
+            const msg = document.createElement('div');
+            msg.id = 'quickMessage';
+            msg.textContent = message;
+            msg.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#00ff00;color:#000;padding:20px 40px;border-radius:10px;font-size:18px;font-weight:bold;z-index:9999;animation:fadeOut 2s forwards;';
+            document.body.appendChild(msg);
+            
+            setTimeout(() => msg.remove(), 2000);
+        }
+
+        // 5. Change Language (Quick - debounced)
+        const changeLanguage = debounce(async function() {
+            const language = document.getElementById('languageSelect').value;
+            
+            // Clear cache
+            cachedConfig = null;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/config`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ language: language })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    logToConsole(`✅ ${language}`, 'success');
+                    logToMicrobot(`Lang: ${language.toUpperCase()}`);
+                }
+            } catch (error) {
+                logToConsole(`❌ ${error.message}`, 'error');
+            }
+        }, 300);
+
+        // 6. Test Voice Conversation (with call prevention)
+        async function testVoiceConversation() {
+            // Prevent multiple simultaneous calls
+            const callId = 'voice_talk';
+            if (activeCalls.has(callId)) {
+                showQuickMessage('⚠️ Already processing voice!');
+                return;
+            }
+            
+            activeCalls.add(callId);
+            
+            try {
+                const language = document.getElementById('languageSelect').value;
+                const mode = document.getElementById('modeSelect').value;
+
+                logToConsole('🎤 Voice: Starting...', 'info');
+                logToMicrobot('🎤 Listening...');
+                
+                const response = await fetch(`${API_BASE_URL}/api/talk`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        current_mode: mode,
+                        language: language
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    logToConsole(`You: ${data.user_input}`, 'info');
+                    logToConsole(`Bot: ${data.text_response.substring(0, 50)}...`, 'success');
+                    logToMicrobot(`You: ${data.user_input}`, true);
+                    logToMicrobot(`Bot: ${data.text_response.substring(0, 40)}...`);
+                    
+                    if (data.audio_played) {
+                        showQuickMessage('✅ Voice done!');
+                    }
+                } else {
+                    logToConsole(`❌ ${data.error}`, 'error');
+                    showQuickMessage('❌ Voice failed - check mic/AWS');
+                }
+            } catch (error) {
+                logToConsole(`❌ ${error.message}`, 'error');
+                showQuickMessage('❌ Voice API error');
+            } finally {
+                // Remove call lock after cooldown
+                setTimeout(() => {
+                    activeCalls.delete(callId);
+                }, CALL_COOLDOWN);
+            }
+        }
+
+        // 7. Get Reminders (with call prevention)
+        async function getReminders() {
+            const callId = 'get_reminders';
+            if (activeCalls.has(callId)) return;
+            activeCalls.add(callId);
+            
+            logToConsole('GET reminders...', 'info');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/data/reminders`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    logToConsole(`✅ ${data.count} reminders`, 'success');
+                    logToMicrobot(`Reminders: ${data.count}`);
+                    
+                    // Only show first 5
+                    data.reminders.slice(0, 5).forEach((r, i) => {
+                        logToConsole(`${i+1}. ${r.task}`, 'info');
+                    });
+                }
+            } catch (error) {
+                logToConsole(`❌ ${error.message}`, 'error');
+            } finally {
+                setTimeout(() => activeCalls.delete(callId), 500);
+            }
+        }
+
+        // 8. Add Reminder (with call prevention)
+        async function addReminder() {
+            const callId = 'add_reminder';
+            if (activeCalls.has(callId)) {
+                showQuickMessage('⚠️ Please wait...');
+                return;
+            }
+            
+            const task = document.getElementById('reminderTask').value;
+            const timeInput = document.getElementById('reminderTime').value;
+
+            if (!task || !timeInput) {
+                showQuickMessage('⚠️ Fill all fields!');
+                return;
+            }
+
+            activeCalls.add(callId);
+            const triggerTime = new Date(timeInput).toISOString();
+            logToConsole('POST reminder...', 'info');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/data/reminders`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        task: task,
+                        trigger_time: triggerTime,
+                        language: document.getElementById('languageSelect').value
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    logToConsole(`✅ ${task}`, 'success');
+                    logToMicrobot(`Set: ${task}`);
+                    
+                    // Clear form
+                    document.getElementById('reminderTask').value = '';
+                    document.getElementById('reminderTime').value = '';
+                    
+                    showQuickMessage('✅ Reminder set!');
+                } else {
+                    logToConsole(`❌ ${data.error}`, 'error');
+                }
+            } catch (error) {
+                logToConsole(`❌ ${error.message}`, 'error');
+            } finally {
+                setTimeout(() => activeCalls.delete(callId), 1000);
+            }
+        }
+
+        // 9. Get Notes (optimized)
+        async function getNotes() {
+            logToConsole('GET notes...', 'info');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/data/notes`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    logToConsole(`✅ ${data.count} notes`, 'success');
+                    logToMicrobot(`Notes: ${data.count}`);
+                    
+                    // Only show first 5
+                    data.notes.slice(0, 5).forEach((n, i) => {
+                        logToConsole(`${i+1}. ${n.content.substring(0, 50)}`, 'info');
+                    });
+                }
+            } catch (error) {
+                logToConsole(`❌ ${error.message}`, 'error');
+            }
+        }
+
+        // 10. Add Note (optimized)
+        async function addNote() {
+            const content = document.getElementById('noteContent').value;
+            const tagsInput = document.getElementById('noteTags').value;
+
+            if (!content) {
+                showQuickMessage('⚠️ Enter content!');
+                return;
+            }
+
+            const tags = tagsInput ? tagsInput.split(',').map(t => t.trim()) : [];
+            logToConsole('POST note...', 'info');
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/data/notes`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ content, tags })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    logToConsole(`✅ ${content.substring(0, 30)}`, 'success');
+                    logToMicrobot(`Note: ${content.substring(0, 20)}`);
+                    
+                    // Clear form
+                    document.getElementById('noteContent').value = '';
+                    document.getElementById('noteTags').value = '';
+                    
+                    showQuickMessage('✅ Note saved!');
+                } else {
+                    logToConsole(`❌ ${data.error}`, 'error');
+                }
+            } catch (error) {
+                logToConsole(`❌ ${error.message}`, 'error');
+            }
+        }
+
+        // Update API Status
+        function updateAPIStatus(isOnline) {
+            const statusEl = document.getElementById('apiStatus');
+            const statusText = document.getElementById('apiStatusText');
+            
+            if (isOnline) {
+                statusEl.className = 'api-status online';
+                statusText.textContent = 'Online';
+            } else {
+                statusEl.className = 'api-status offline';
+                statusText.textContent = 'Offline';
+            }
+        }
+
+        // Show API Help Modal
+        function showAPIHelp() {
+            alert(`
+🔌 Microbot API Endpoints
+
+📡 CONFIG API:
+• GET /api/config - Get configuration
+• PUT /api/config - Update configuration
+
+🎤 TALK API:
+• POST /api/talk - Voice conversation (STT→AI→TTS)
+
+📊 DATA API:
+• GET/POST /api/data/reminders - Manage reminders
+• GET/POST /api/data/notes - Manage notes
+
+🏥 UTILITY:
+• GET /api/health - Health check
+• GET /api/info - API information
+
+📚 Full docs: http://localhost:5000/docs
+            `);
+        }
+
+        // Cache for config to avoid repeated calls
+        let cachedConfig = null;
+        
+        // Debounce function for performance
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Continuous Voice Functions
+        async function startContinuousVoice() {
+            const callId = 'start_continuous';
+            if (activeCalls.has(callId)) {
+                showQuickMessage('⚠️ Already starting...');
+                return;
+            }
+            
+            activeCalls.add(callId);
+            logToConsole('🔄 Starting continuous voice...', 'info');
+            logToMicrobot('🔄 Starting continuous mode...');
+            
+            try {
+                const language = document.getElementById('languageSelect').value;
+                const mode = document.getElementById('modeSelect').value;
+                
+                const response = await fetch(`${API_BASE_URL}/api/talk/continuous/start`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        current_mode: mode,
+                        language: language
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    logToConsole('✅ Continuous mode started!', 'success');
+                    logToMicrobot('🎤 CONTINUOUS MODE ACTIVE');
+                    document.getElementById('voiceStatus').textContent = 'Status: Running 🟢';
+                    document.getElementById('voiceStatus').style.color = '#00ff00';
+                    showQuickMessage('✅ Continuous mode ON!');
+                    
+                    // Start status polling
+                    startStatusPolling();
+                } else {
+                    logToConsole(`❌ ${data.error || data.message}`, 'error');
+                    showQuickMessage('❌ Failed to start');
+                }
+            } catch (error) {
+                logToConsole(`❌ ${error.message}`, 'error');
+                showQuickMessage('❌ Error');
+            } finally {
+                setTimeout(() => activeCalls.delete(callId), 1000);
+            }
+        }
+        
+        async function stopContinuousVoice() {
+            logToConsole('🛑 Stopping continuous voice...', 'info');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/talk/continuous/stop`, {
+                    method: 'POST'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    logToConsole('✅ Continuous mode stopped', 'success');
+                    logToMicrobot('🛑 Mode stopped');
+                    document.getElementById('voiceStatus').textContent = 'Status: Stopped 🔴';
+                    document.getElementById('voiceStatus').style.color = '#888';
+                    showQuickMessage('✅ Stopped!');
+                    stopStatusPolling();
+                } else {
+                    logToConsole(`⚠️ ${data.message}`, 'info');
+                }
+            } catch (error) {
+                logToConsole(`❌ ${error.message}`, 'error');
+            }
+        }
+        
+        async function checkContinuousStatus() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/talk/continuous/status`);
+                const data = await response.json();
+                
+                if (data.active) {
+                    document.getElementById('voiceStatus').textContent = 'Status: Running 🟢';
+                    document.getElementById('voiceStatus').style.color = '#00ff00';
+                } else {
+                    document.getElementById('voiceStatus').textContent = 'Status: Stopped 🔴';
+                    document.getElementById('voiceStatus').style.color = '#888';
+                }
+            } catch (error) {
+                // Ignore errors
+            }
+        }
+        
+        let statusPollingInterval = null;
+        
+        function startStatusPolling() {
+            if (statusPollingInterval) return;
+            statusPollingInterval = setInterval(checkContinuousStatus, 2000); // Check every 2 seconds
+        }
+        
+        function stopStatusPolling() {
+            if (statusPollingInterval) {
+                clearInterval(statusPollingInterval);
+                statusPollingInterval = null;
+            }
+        }
+
+        // Initialize on load
+        window.addEventListener('load', async () => {
+            logToConsole('Microbot Testing Interface Loaded', 'success');
+            logToMicrobot('System initialized. Ready for testing.');
+            
+            // Auto-check health (faster, no delay)
+            checkHealth();
+            testGetConfig();
+            
+            // Check continuous voice status
+            checkContinuousStatus();
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,53 @@
+{
+  "_info": {
+    "description": "Microbot Configuration File - Auto-updates during bot operation",
+    "last_modified": "Auto-saved on every change",
+    "settings": {
+      "bot_name": "Display name of your bot (changeable via 'change my name')",
+      "language": "Bot language: 'english', 'hinglish', or 'marathi'",
+      "current_mode": "Active mode: 'normal', 'notes', 'pomodoro', or 'voice'",
+      "password_hash": "SHA256 hash of password (use 'set password' command)",
+      "security_questions": "Password recovery questions (set during password setup)",
+      "mode_states": "Real-time status of each mode (auto-updated)",
+      "voice_settings": {
+        "enabled": "Enable/disable voice mode",
+        "english_voice": "Voice for English (matthew, justin, salli)",
+        "hinglish_voice": "Voice for Hinglish/Hindi (aditi)",
+        "current_voice": "Currently active voice (auto-updates on language switch)",
+        "aws_configured": "Whether AWS credentials are set"
+      }
+    },
+    "commands": {
+      "view_settings": "show settings | view settings | settings dikhao",
+      "change_language": "speak in english | hinglish mein baat karo",
+      "change_name": "change my name | mera naam badlo",
+      "set_password": "set password | password set karo",
+      "voice": "activate voice mode | change voice to [matthew|justin|salli] | exit voice mode",
+      "modes": {
+        "notes": "activate notes mode",
+        "pomodoro": "activate pomodoro mode",
+        "voice": "activate voice mode (requires AWS credentials)",
+        "exit": "exit [mode] mode | [mode] band"
+      }
+    }
+  },
+  "bot_name": "Chotu",
+  "password_hash": "b54bbec33498a2860be52b6a9e2b6ad8f642ad954c4c0c4933170925f4b5e082",
+  "language": "english",
+  "security_questions": {
+    "What is your mother's name?": "bf863483bc38240bd8f120d0a8d15a03ecf0a773fd3c63171714055a0b98875c"
+  },
+  "current_mode": "normal",
+  "mode_states": {
+    "notes_active": false,
+    "pomodoro_active": false,
+    "voice_active": false
+  },
+  "voice_settings": {
+    "enabled": true,
+    "english_voice": "justin",
+    "hinglish_voice": "aditi",
+    "current_voice": "justin",
+    "aws_configured": true
+  }
+}

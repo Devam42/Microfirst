@@ -1,0 +1,79 @@
+# ============================================================================
+# MICROBOT - Docker Ignore File
+# ============================================================================
+# These files/folders will NOT be copied into the Docker image
+
+# Git
+.git
+.gitignore
+
+# Environment files (secrets - mount via volumes or env vars)
+.env
+*.env
+
+# Python cache
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ESP32/Hardware code (not needed on server)
+CLIENT_CODE/
+Expression/
+working mic and speaker code/
+
+# Documentation
+*.md
+*.pdf
+DEPLOYMENT_GUIDE.md
+README.md
+MICROBOT_COMPLETE_SPECIFICATION.pdf
+
+# Test files
+test_*.py
+*_test.py
+tests/
+
+# Docker files (don't copy into image)
+Dockerfile
+docker-compose.yml
+docker-compose*.yml
+
+# Logs (mount as volume instead)
+logs/
+*.log
+
+# Temp files
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# Example/template files
+env.example
+*.example
+
+# HTML test files
+test_ui.html
+*.html
+
+# Backups
+*.bak
+*.backup
+shop_data/backups/

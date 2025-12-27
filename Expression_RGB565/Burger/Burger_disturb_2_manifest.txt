@@ -1,6 +1,0 @@
-# Manifest for Burger_disturb_2.mp4
-width=240
-height=320
-fps=15
-frames=90
-loop=1

@@ -1,8 +1,0 @@
-# Manifest for love3.mp4
-# Optimized for ESP32 single-read playback
-width=128
-height=160
-fps=20
-frames=181
-loop=1
-# Frame size: 40960 bytes

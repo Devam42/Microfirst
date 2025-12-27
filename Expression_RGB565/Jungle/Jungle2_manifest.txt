@@ -1,6 +1,0 @@
-# Manifest for Jungle2.mp4
-width=240
-height=320
-fps=15
-frames=288
-loop=1

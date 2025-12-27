@@ -1,6 +1,0 @@
-# Manifest for Burger.mp4
-width=240
-height=320
-fps=15
-frames=482
-loop=1

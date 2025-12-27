@@ -104,7 +104,7 @@ Respond with only "YES" or "NO"."""
             
             client = make_client()
             response = client.models.generate_content(
-                model="gemini-flash-lite-latest",
+                model="gemini-2.5-flash",
                 contents=prompt
             )
             
@@ -145,7 +145,7 @@ Respond with only one of these exact words."""
             
             client = make_client()
             response = client.models.generate_content(
-                model="gemini-flash-lite-latest",
+                model="gemini-2.5-flash",
                 contents=prompt
             )
             

@@ -1,0 +1,6 @@
+# Manifest for love3.mp4
+width=240
+height=320
+fps=15
+frames=181
+loop=1

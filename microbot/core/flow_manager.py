@@ -187,7 +187,7 @@ User input: "{user_input}"
 Respond with only one of the exact keywords above."""
 
             response = client.models.generate_content(
-                model="gemini-flash-lite-latest",
+                model="gemini-2.5-flash",
                 contents=prompt
             )
             
@@ -420,7 +420,7 @@ User input: "{user_input}"
 Respond with only "YES" or "NO"."""
 
             response = client.models.generate_content(
-                model="gemini-flash-lite-latest",
+                model="gemini-2.5-flash",
                 contents=prompt
             )
             

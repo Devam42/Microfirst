@@ -12,7 +12,7 @@ from typing import List, Optional, Dict, Any
 # Add legacy code to path
 sys.path.append(str(Path(__file__).parent.parent.parent / "legacy_code"))
 
-from google.genai import types
+# Using google.generativeai (not google.genai)
 
 try:
     from ..features.language import LanguageSelector, SupportedLanguage
@@ -94,11 +94,11 @@ class SimpleChatManager:
         
         # Initialize AI client with speed optimization
         self.client = make_client()
-        self.model = os.getenv("GENAI_MODEL", "gemini-flash-lite-latest")  # Fastest model
-        self.fast_model = "gemini-flash-lite-latest"  # Ultra-fast smallest model
+        self.model = os.getenv("GENAI_MODEL", "gemini-2.5-flash")  # Fast model
+        self.fast_model = "gemini-2.5-flash"  # Fast model for quick responses
         
-        # Conversation history
-        self.history: List[types.Content] = []
+        # Conversation history (simple list of dicts for google.generativeai)
+        self.history: List[Dict[str, str]] = []
         
         # Chat state
         self.is_running = False
@@ -516,22 +516,21 @@ class SimpleChatManager:
             if want_expanded(user_input):
                 persona += " Give a more complete answer in one message, but keep it clear and focused."
             
-            # Create system message (legacy style)
-            system_msg = types.Content(role="user", parts=[types.Part.from_text(text=persona)])
-            
-            # Build contents list with MINIMAL context for SPEED
-            contents: List[types.Content] = [system_msg]
-            
+            # Build prompt with persona and history (google.generativeai style)
             # ULTRA MINIMAL history for MAXIMUM speed
             if self.voice_mode_active:
                 # Voice: NO HISTORY AT ALL for instant responses!
-                recent_history = []
+                history_text = ""
             else:
                 # Text: Only last 2 messages (1 exchange) for speed
                 recent_history = self.history[-2:] if len(self.history) > 2 else self.history
+                history_text = "\n".join([f"{h['role']}: {h['content']}" for h in recent_history])
             
-            contents.extend(recent_history)
-            contents.append(types.Content(role="user", parts=[types.Part.from_text(text=user_input)]))
+            # Combine persona, history, and user input
+            full_prompt = f"{persona}\n\n"
+            if history_text:
+                full_prompt += f"Previous conversation:\n{history_text}\n\n"
+            full_prompt += f"User: {user_input}\nAssistant:"
             
             # Generate response (legacy style - minimal config, line 200-205)
             try:
@@ -554,16 +553,15 @@ class SimpleChatManager:
                 else:
                     max_tokens = 20  # Short response + question (15-20 words)
                 
-                response = self.client.models.generate_content(
-                    model=self.fast_model,  # Use configured fast model
-                    contents=contents,
-                    config=types.GenerateContentConfig(
-                        temperature=2.0,  # MAXIMUM temperature = FASTEST generation
-                        max_output_tokens=max_tokens,
-                        top_k=1,  # Greedy decoding = fastest
-                        top_p=1.0,  # Full probability range for speed
-                        candidate_count=1,  # Only one candidate for speed
-                    ),
+                # Generate using google.generativeai
+                response = self.client.generate_content(
+                    full_prompt,
+                    generation_config={
+                        "temperature": 0.9,
+                        "max_output_tokens": max_tokens,
+                        "top_k": 40,
+                        "top_p": 0.95,
+                    },
                 )
                 final_text = response.text.strip()
                 
@@ -593,9 +591,9 @@ class SimpleChatManager:
             if not looks_serious(user_input):
                 final_text = childify(final_text, self.config.language())
             
-            # Update conversation history (legacy style)
-            self.history.append(types.Content(role="user", parts=[types.Part.from_text(text=user_input)]))
-            self.history.append(types.Content(role="model", parts=[types.Part.from_text(text=final_text)]))
+            # Update conversation history (simple dict format)
+            self.history.append({"role": "user", "content": user_input})
+            self.history.append({"role": "assistant", "content": final_text})
             
             # ULTRA SPEED: Minimal history for instant responses
             # Keep only last 4 messages (2 exchanges) for maximum speed
@@ -611,7 +609,7 @@ class SimpleChatManager:
             # Fallback response
             return f"I'm having trouble understanding right now. Could you try again? (Error: {str(e)})"
     
-    def _create_summarized_context(self, history: List[types.Content]) -> List[types.Content]:
+    def _create_summarized_context(self, history: List[Dict[str, str]]) -> List[Dict[str, str]]:
         """Create a summarized context by condensing older messages"""
         try:
             # Keep last 40 messages (20 exchanges) in full detail
@@ -624,20 +622,18 @@ class SimpleChatManager:
                 # Extract key information from older messages
                 summary_parts = []
                 emotional_keywords = []
-                important_topics = []
                 
                 for msg in older_messages:
-                    if hasattr(msg, 'parts') and msg.parts:
-                        text = msg.parts[0].text.lower()
-                        
-                        # Extract emotional context
-                        emotions = ['sad', 'happy', 'upset', 'problem', 'dukhi', 'khush', 'pareshan', 
-                                   'girlfriend', 'boyfriend', 'friend', 'family', 'attacked', 'police']
-                        for emotion in emotions:
-                            if emotion in text and emotion not in emotional_keywords:
-                                emotional_keywords.append(emotion)
-                                if len(emotional_keywords) < 5:  # Keep top 5
-                                    summary_parts.append(text[:80])
+                    text = msg.get('content', '').lower()
+                    
+                    # Extract emotional context
+                    emotions = ['sad', 'happy', 'upset', 'problem', 'dukhi', 'khush', 'pareshan', 
+                               'girlfriend', 'boyfriend', 'friend', 'family', 'attacked', 'police']
+                    for emotion in emotions:
+                        if emotion in text and emotion not in emotional_keywords:
+                            emotional_keywords.append(emotion)
+                            if len(emotional_keywords) < 5:  # Keep top 5
+                                summary_parts.append(text[:80])
                 
                 # Build concise summary
                 if emotional_keywords:
@@ -650,10 +646,7 @@ class SimpleChatManager:
                     summary_text += f" Key points: {'; '.join(summary_parts[:2])}"
                 
                 # Create summary message
-                summary_msg = types.Content(
-                    role="user", 
-                    parts=[types.Part.from_text(text=f"[Summary: {summary_text[:200]}...]")]
-                )
+                summary_msg = {"role": "user", "content": f"[Summary: {summary_text[:200]}...]"}
                 
                 print(f"📝 Context summarized: {len(older_messages)} old messages → 1 summary + {len(recent_messages)} recent")
                 

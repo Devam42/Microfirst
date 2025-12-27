@@ -1,7 +1,7 @@
 # Microbot AI Assistant - Requirements
 
 # Core AI and ML
-google-genai>=0.7.0
+google-generativeai>=0.3.0
 
 # Environment Variables
 python-dotenv>=1.0.0
@@ -11,6 +11,7 @@ fastapi>=0.104.0
 uvicorn>=0.24.0
 pydantic>=2.0.0
 httpx>=0.25.0  # Async HTTP client for webhooks
+python-multipart>=0.0.6  # Required for file uploads in FastAPI
 
 # Date and time processing
 python-dateutil>=2.8.0

@@ -20,7 +20,7 @@ class SmartReminderGenerator:
     
     def __init__(self):
         self.client = make_client()
-        self.model = "gemini-flash-lite-latest"  # Correct model name
+        self.model = "gemini-2.5-flash"  # Latest stable model
         
         # Message templates for fallback
         self.fallback_templates = {
@@ -93,16 +93,8 @@ class SmartReminderGenerator:
             else:
                 prompt = self._build_hinglish_prompt(task, urgency, category, context)
             
-            # Generate with Gemini
-            from google.genai import types
-            
-            response = self.client.models.generate_content(
-                model=self.model,
-                contents=[types.Content(role="user", parts=[types.Part.from_text(text=prompt)])],
-                config=types.GenerateContentConfig(
-                    thinking_config=types.ThinkingConfig(thinking_budget=0)
-                )
-            )
+            # Generate with Gemini (using google.generativeai)
+            response = self.client.generate_content(prompt)
             
             if response and response.text:
                 # Clean and format the response
@@ -286,15 +278,8 @@ Example: "Reminder set kar diya! 5 minute mein call John ka yaad dila dunga."
 
 Generate ONLY the confirmation message in Hinglish:"""
             
-            from google.genai import types
-            
-            response = self.client.models.generate_content(
-                model=self.model,
-                contents=[types.Content(role="user", parts=[types.Part.from_text(text=prompt)])],
-                config=types.GenerateContentConfig(
-                    thinking_config=types.ThinkingConfig(thinking_budget=0)
-                )
-            )
+            # Generate with Gemini (using google.generativeai)
+            response = self.client.generate_content(prompt)
             
             if response and response.text:
                 message = response.text.strip()
